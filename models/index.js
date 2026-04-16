@@ -1,5 +1,10 @@
 'use strict';
 
+const User = require('./User')
+const Client = require('./Client')
+const Deal = require('./Deal')
+const Comment = require('./Comment')
+
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -39,5 +44,8 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+// Associations
+
 
 module.exports = db;
