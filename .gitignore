@@ -1,0 +1,14 @@
+node_modules/
+
+# env (не коммитим секреты)
+.env
+.env.local
+.env.*.local
+
+# логи и отчеты тестов
+*.log
+coverage/
+.nyc_output/
+
+# OS
+.DS_Store
