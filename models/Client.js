@@ -19,7 +19,7 @@ const Client = sequelize.define(
       validate: { isEmail: true, notEmpty: true },
     },
     phone: {
-      type: DataTypes.INTEGER(20),
+      type: DataTypes.INTEGER,
       allowNull: false,
       unique: true,
       validate: {

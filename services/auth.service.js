@@ -5,13 +5,17 @@ const saltRounds = 10;
 
 const register = async (email, password, username) => {
   const hashedPassword = await bcrypt.hash(password, saltRounds);
+
   const newUser = await User.create({
     email,
     password: hashedPassword,
     username,
     role: "manager",
   });
-  return { email: newUser.email, username: newUser.username, role: newUser.role };
+
+  const accessToken = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, { expiresIn: "15m" });
+
+  return { email: newUser.email, username: newUser.username, role: newUser.role, accessToken };
 };
 
 const login = async (email, password) => {
