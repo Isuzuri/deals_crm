@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("./index");
+const { sequelize } = require("./db");
 
 const Deal = sequelize.define(
   "Deal",
@@ -13,7 +13,7 @@ const Deal = sequelize.define(
       },
     },
     amount: {
-      type: DataTypes.DECIMAL(2),
+      type: DataTypes.DECIMAL(12, 2),
       allowNull: false,
       validate: {
         isDecimal: true,
@@ -28,7 +28,7 @@ const Deal = sequelize.define(
       },
     },
     deadline: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: false,
       validate: {
         isDate: true,
