@@ -1,7 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const auth = require('./auth.routes')
+const permitRoles = require("../middleware/permitRoles");
+const clients = require("./clients.routes");
 
-router.use("/auth", auth);
+router.use('/clients', clients)
+
+router.get("/me", (req, res) => {
+  return res.json({ user: req.user });
+});
+
+router.get("/admin", permitRoles("admin"), (req, res) => {
+  return res.json({ message: "Admin area", user: req.user });
+});
 
 module.exports = router;
