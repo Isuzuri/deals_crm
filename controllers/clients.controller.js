@@ -27,7 +27,7 @@ const getAll = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
   try {
-    const id = req.id;
+    const id = req.params.id;
     if (!id) throw Error("Client not found");
 
     const result = await clientsService.getOne(id);
@@ -39,15 +39,15 @@ const getOne = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const id = req.id;
+    const id = req.params.id;
     if (!id) throw Error("Client not found");
 
     const { name, email, phone, company, status } = req.body;
     if (!name || !email || !phone || !company || !status) throw Error("Invalid fields");
-    if (status !== "lead" || status !== "active" || status !== "inactive") throw Error("Invalid deal status");
+    if (!["lead", "active", "inactive"].includes(status)) throw Error("Invalid client status");
 
     const result = await clientsService.update(id, name, email, phone, company, status);
-    res.send(200).json(result);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
@@ -55,11 +55,11 @@ const update = async (req, res, next) => {
 
 const deleteOne = async (req, res, next) => {
     try {
-        const id = req.id
+        const id = req.params.id
         if (!id) throw Error("Client not found");
 
-        await clientsService(id)
-        res.status(200)
+        await clientsService.deleteOne(id)
+        res.status(200).json({ message: "Client deleted" })
     } catch (error) {
         next (error)
     }

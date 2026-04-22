@@ -14,7 +14,7 @@ const getOne = async (id) => {
 };
 
 const update = async (id, name, email, phone, company, status) => {
-  return await clientsRepository.update(id, name, email, phone, company, manager_id, status);
+  return await clientsRepository.update(id, name, email, phone, company, status);
 };
 
 const deleteOne = async (id) => {

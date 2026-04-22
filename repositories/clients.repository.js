@@ -30,11 +30,11 @@ const getOne = async (id) => {
 };
 
 const update = async (id, name, email, phone, company, status) => {
-  return await Client.update({ name, email, phone, company, status }, { where: id });
+  return await Client.update({ name, email, phone, company, status }, { where: { id } });
 };
 
 const deleteOne = async (id) => {
-    return await Client.destroy({where: id})
+    return await Client.destroy({ where: { id } })
 }
 
 module.exports = { create, getAll, getOne, update, deleteOne };
