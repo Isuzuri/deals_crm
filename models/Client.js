@@ -49,4 +49,4 @@ const Client = sequelize.define(
   { timestamps: true },
 );
 
-module.exports = Client
+module.exports = Client;
