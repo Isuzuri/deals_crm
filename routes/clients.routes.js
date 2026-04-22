@@ -3,9 +3,9 @@ const clients = express.Router();
 const clientsController = require('../controllers/clients.controller')
 
 clients.post('/', clientsController.create);
-clients.get('/')
-clients.get('/:id')
-clients.put('/:id')
-clients.delete('/:id')
+clients.get('/', clientsController.getAll)
+clients.get('/:id', clientsController.getOne)
+clients.put('/:id', clientsController.update)
+clients.delete('/:id', clientsController.deleteOne)
 
 module.exports = clients;
