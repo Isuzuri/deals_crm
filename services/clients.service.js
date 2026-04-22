@@ -6,7 +6,13 @@ const create = async (name, email, phone, company, manager_id) => {
 };
 
 const getAll = async (search, page = 1, pageSize = 10, sortBy = "createdAt", order = "DESC") => {
-  return await clientsRepository.getAll(search, page, pageSize, sortBy, order);
+  const clients = await clientsRepository.getAll(search, page, pageSize, sortBy, order);
+  return {
+    page,
+    pageSize,
+    count: clients.count,
+    items: clients.rows
+  }
 };
 
 const getOne = async (id) => {
