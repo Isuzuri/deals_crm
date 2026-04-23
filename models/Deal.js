@@ -8,7 +8,6 @@ const Deal = sequelize.define(
       type: DataTypes.STRING(8),
       allowNull: false,
       validate: {
-        isAlphanumeric: true,
         notEmpty: true,
       },
     },
