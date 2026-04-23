@@ -1,4 +1,4 @@
-const { createError } = require("../helpers/createError");
+const createError = require("../helpers/createError");
 const clientsService = require("../services/clients.service");
 
 const create = async (req, res, next) => {
@@ -55,15 +55,15 @@ const update = async (req, res, next) => {
 };
 
 const deleteOne = async (req, res, next) => {
-    try {
-        const id = req.params.id
-        if (!id) throw createError(404, "Client not found");
+  try {
+    const id = req.params.id;
+    if (!id) throw createError(404, "Client not found");
 
-        await clientsService.deleteOne(id)
-        res.status(200).json({ message: "Client deleted" })
-    } catch (error) {
-        next (error)
-    }
-}
+    await clientsService.deleteOne(id);
+    res.status(200).json({ message: "Client deleted" });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = { create, getAll, getOne, update, deleteOne };
