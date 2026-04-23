@@ -8,7 +8,6 @@ const Client = sequelize.define(
       type: DataTypes.STRING(30),
       allowNull: false,
       validate: {
-        isAlpha: true,
         notEmpty: true,
       },
     },

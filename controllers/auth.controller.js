@@ -10,7 +10,7 @@ const register = async (req, res, next) => {
     const result = await authService.register(email, password, username);
     res.status(201).json(result);
   } catch (error) {
-    res.status(500).json({ message: error });
+    next(error)
   }
 };
 
@@ -24,7 +24,7 @@ const login = async (req, res, next) => {
     const { accessToken } = await authService.login(email, password);
     return res.status(200).json({ message: "Login successfully", data: { token: accessToken } });
   } catch (error) {
-    res.status(500).json({ message: error });
+    next(error)
   }
 };
 
