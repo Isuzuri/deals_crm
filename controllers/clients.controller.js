@@ -1,12 +1,13 @@
+const { createError } = require("../helpers/createError");
 const clientsService = require("../services/clients.service");
 
 const create = async (req, res, next) => {
   try {
     const { name, email, phone, company } = req.body;
-    if (!name || !email || !phone || !company) throw Error("Invalid fields");
+    if (!name || !email || !phone || !company) throw createError(400, "Invalid fields");
 
     const manager_id = req.user.userId;
-    if (!manager_id) throw Error("Manager not found");
+    if (!manager_id) throw createError(404, "Manager not found");
 
     const result = await clientsService.create(name, email, phone, company, manager_id);
     res.status(201).json(result);
@@ -28,7 +29,7 @@ const getAll = async (req, res, next) => {
 const getOne = async (req, res, next) => {
   try {
     const id = req.params.id;
-    if (!id) throw Error("Client not found");
+    if (!id) throw createError(404, "Client not found");
 
     const result = await clientsService.getOne(id);
     res.status(200).json(result);
@@ -40,7 +41,7 @@ const getOne = async (req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const id = req.params.id;
-    if (!id) throw Error("Client not found");
+    if (!id) throw createError(404, "Client not found");
 
     const { name, email, phone, company, status } = req.body;
     if (!name || !email || !phone || !company || !status) throw Error("Invalid fields");
@@ -56,7 +57,7 @@ const update = async (req, res, next) => {
 const deleteOne = async (req, res, next) => {
     try {
         const id = req.params.id
-        if (!id) throw Error("Client not found");
+        if (!id) throw createError(404, "Client not found");
 
         await clientsService.deleteOne(id)
         res.status(200).json({ message: "Client deleted" })
