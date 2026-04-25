@@ -3,7 +3,7 @@ const db = require("../models");
 const { Deal } = db;
 
 const getDeal = async (req, res, next) => {
-  const id = await req.params.id;
+  const id = req.params.id;
   if (!id) throw createError(400, "No id");
 
   const deal = await Deal.findByPk(id);
