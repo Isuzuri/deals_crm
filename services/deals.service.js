@@ -28,4 +28,4 @@ const deleteOne = async (id) => {
   return await dealsRepository.deleteOne(id);
 };
 
-module.exports = { create, getAll, getOne, update, deleteOne };
+module.exports = { create, getAll, update, deleteOne };

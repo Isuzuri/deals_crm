@@ -32,4 +32,4 @@ const deleteOne = async (id) => {
   return await Deal.destroy({ where: { id } });
 };
 
-module.exports = { create, getAll, getOne, update, deleteOne };
+module.exports = { create, getAll, update, deleteOne };
