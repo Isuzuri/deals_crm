@@ -4,7 +4,7 @@ const dealsService = require("../services/deals.service");
 const create = async (req, res, next) => {
   try {
     const { title, amount, client_id } = req.body;
-    if (!title || !amount || !client_id) throw createError(401, "Invalid fields");
+    if (!title || !amount || !client_id) throw createError(400, "Bad request");
 
     const result = await dealsService.create(title, amount, client_id);
     res.status(201).json(result);
@@ -35,10 +35,10 @@ const getOne = async (req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const { title, amount, status, deadline, client_id } = req.body;
-    if (!title || !amount || !status || !deadline || !client_id) throw createError(401, "Invalid fields");
+    if (!title || !amount || !status || !deadline || !client_id) throw createError(400, "Bad request");
 
     const deal = req.deal;
-    if (!deal) throw createError("404", "Deal not found");
+    if (!deal) throw createError(404, "Deal not found");
 
     const result = await dealsService.update(deal.id, title, amount, status, deadline, client_id);
     res.status(200).json(result);
@@ -50,7 +50,7 @@ const update = async (req, res, next) => {
 const deleteOne = async (req, res, next) => {
   try {
     const deal = req.deal;
-    if (!deal) throw createError("404", "Deal not found");
+    if (!deal) throw createError(404, "Deal not found");
 
     await dealsService.deleteOne(deal.id);
     res.status(200).json({ message: "Deal deleted" });

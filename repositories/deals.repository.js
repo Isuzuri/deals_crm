@@ -25,7 +25,7 @@ const getAll = async (search, page, pageSize, sortBy, order) => {
 // };
 
 const update = async (deal_id, title, amount, status, deadline, client_id) => {
-  return await Deal.update({ title, amount, status, deadline, client_id }, { where: { deal_id } });
+  return await Deal.update({ title, amount, status, deadline, client_id }, { where: { id: deal_id } });
 };
 
 const deleteOne = async (id) => {
