@@ -4,7 +4,7 @@ const clientsService = require("../services/clients.service");
 const create = async (req, res, next) => {
   try {
     const { name, email, phone, company } = req.body;
-    if (!name || !email || !phone || !company) throw createError(400, "Invalid fields");
+    if (!name || !email || !phone || !company) throw createError(400, "Bad request");
 
     const manager_id = req.user.userId;
     if (!manager_id) throw createError(404, "Manager not found");
@@ -44,7 +44,7 @@ const update = async (req, res, next) => {
     if (!id) throw createError(404, "Client not found");
 
     const { name, email, phone, company, status } = req.body;
-    if (!name || !email || !phone || !company || !status) throw Error("Invalid fields");
+    if (!name || !email || !phone || !company || !status) throw Error("Bad request");
     if (!["lead", "active", "inactive"].includes(status)) throw Error("Invalid client status");
 
     const result = await clientsService.update(id, name, email, phone, company, status);

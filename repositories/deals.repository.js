@@ -28,8 +28,8 @@ const update = async (deal_id, title, amount, status, deadline, client_id) => {
   return await Deal.update({ title, amount, status, deadline, client_id }, { where: { id: deal_id } });
 };
 
-const deleteOne = async (id) => {
-  return await Deal.destroy({ where: { id } });
+const deleteOne = async (deal_id) => {
+  return await Deal.destroy({ where: { id: deal_id } });
 };
 
 module.exports = { create, getAll, update, deleteOne };

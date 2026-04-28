@@ -3,8 +3,8 @@ const db = require("../models");
 const { Deal } = db;
 
 const getDeal = async (req, res, next) => {
-  const id = req.params.id;
-  if (!id) throw createError(400, "No id");
+  const deal_id = req.params.deal_id;
+  if (!deal_id) throw createError(400, "Bad request");
 
   const deal = await Deal.findByPk(id);
   if (!deal) throw createError(404, "Deal not found");

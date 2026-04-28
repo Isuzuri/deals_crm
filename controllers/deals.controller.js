@@ -37,10 +37,10 @@ const update = async (req, res, next) => {
     const { title, amount, status, deadline, client_id } = req.body;
     if (!title || !amount || !status || !deadline || !client_id) throw createError(400, "Bad request");
 
-    const deal = req.deal;
-    if (!deal) throw createError(404, "Deal not found");
+    const { id: deal_id } = req.deal;
+    if (!deal_id) throw createError(404, "Deal not found");
 
-    const result = await dealsService.update(deal.id, title, amount, status, deadline, client_id);
+    const result = await dealsService.update(deal_id, title, amount, status, deadline, client_id);
     res.status(200).json(result);
   } catch (error) {
     next(error);
@@ -49,10 +49,10 @@ const update = async (req, res, next) => {
 
 const deleteOne = async (req, res, next) => {
   try {
-    const deal = req.deal;
-    if (!deal) throw createError(404, "Deal not found");
+    const { id: deal_id } = req.deal;
+    if (!deal_id) throw createError(404, "Deal not found");
 
-    await dealsService.deleteOne(deal.id);
+    await dealsService.deleteOne(deal_id);
     res.status(200).json({ message: "Deal deleted" });
   } catch (error) {
     next(error);

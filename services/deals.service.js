@@ -24,8 +24,8 @@ const update = async (deal_id, title, amount, status, deadline, client_id) => {
   return await dealsRepository.update(deal_id, title, amount, status, deadline, client_id);
 };
 
-const deleteOne = async (id) => {
-  return await dealsRepository.deleteOne(id);
+const deleteOne = async (deal_id) => {
+  return await dealsRepository.deleteOne(deal_id);
 };
 
 module.exports = { create, getAll, update, deleteOne };
