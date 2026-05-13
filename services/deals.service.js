@@ -1,6 +1,6 @@
 const dealsRepository = require("../repositories/deals.repository");
 const redis = require("../config/redisClient");
-const { toResponseList } = require("../mappers/dealsMapper");
+const { toResponseList, toResponse } = require("../mappers/dealsMapper");
 
 const create = async (title, amount, client_id) => {
   const status = "new";
@@ -21,9 +21,9 @@ const getAll = async (search, page = 1, pageSize = 10, sortBy = "createdAt", ord
   return response;
 };
 
-// const getOne = async (id) => {
-//   return await dealsRepository.getOne(id);
-// };
+const getOne = async (deal) => {
+  return toResponse(deal);
+};
 
 const update = async (deal_id, title, amount, status, deadline, client_id) => {
   const result = await dealsRepository.update(deal_id, title, amount, status, deadline, client_id);
@@ -40,4 +40,4 @@ const deleteOne = async (deal_id) => {
   return await dealsRepository.deleteOne(deal_id);
 };
 
-module.exports = { create, getAll, update, deleteOne };
+module.exports = { create, getAll, getOne, update, deleteOne };

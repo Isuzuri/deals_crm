@@ -22,7 +22,7 @@ const getAll = async (search, page, pageSize, sortBy, order, manager_id, role) =
     include: dealInclude,
   };
 
-  const deals = Deal.findAndCountAll(query);
+  const deals = await Deal.findAndCountAll(query);
 
   return deals;
 };
@@ -32,9 +32,7 @@ const getAll = async (search, page, pageSize, sortBy, order, manager_id, role) =
 // };
 
 const update = async (deal_id, title, amount, status, deadline, client_id) => {
-  
-  await Deal.update({ title, amount, status, deadline, client_id }, { where: { id: deal_id } });
-  return 
+  return await Deal.update({ title, amount, status, deadline, client_id }, { where: { id: deal_id } });
 };
 
 const deleteOne = async (deal_id) => {

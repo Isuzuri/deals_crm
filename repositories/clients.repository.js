@@ -7,21 +7,24 @@ const create = async (name, email, phone, company, manager_id, status) => {
 };
 
 const getAll = async (search, page, pageSize, sortBy, order) => {
+  const clientsWhere = search
+  ? {
+      [Op.or]: [
+        { name: { [Op.like]: `%${search}%` } },
+        { email: { [Op.like]: `%${search}%` } },
+        { company: { [Op.like]: `%${search}%` } },
+        { phone: { [Op.like]: `%${search}%` } },
+      ],
+    }
+  : {}
+
   const clients = await Client.findAndCountAll({
-    where: search
-      ? {
-          [Op.or]: [
-            { name: { [Op.like]: `%${search}%` } },
-            { email: { [Op.like]: `%${search}%` } },
-            { company: { [Op.like]: `%${search}%` } },
-            { phone: { [Op.like]: `%${search}%` } },
-          ],
-        }
-      : {},
+    where: clientsWhere,
     order: [[sortBy, order]],
     limit: Number(pageSize),
     offset: (Number(page) - 1) * Number(pageSize),
   });
+  
   return clients;
 };
 

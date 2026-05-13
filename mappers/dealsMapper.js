@@ -15,8 +15,8 @@ const toResponseList = ({deals, page, pageSize}) => {
   return {
     page,
     pageSize,
-    total: deals.count,
-    deals: deals.rows.map(toResponse),
+    count: deals.count,
+    items: deals.rows.map(toResponse),
   };
 };
 

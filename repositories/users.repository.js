@@ -9,12 +9,12 @@ const create = async (email, password, username, role) => {
 };
 
 const getAll = async (search, page, pageSize, sortBy, order) => {
+  const userWhere = search
+    ? { [Op.or]: [{ email: { [Op.like]: `%${search}%` } }, { username: { [Op.like]: `%${search}%` } }] }
+    : {};
+
   return User.findAndCountAll({
-    where: search
-      ? {
-          [Op.or]: [{ email: { [Op.like]: `%${search}%` } }, { username: { [Op.like]: `%${search}%` } }],
-        }
-      : {},
+    where: userWhere,
     attributes: safeUserAttributes,
     order: [[sortBy, order]],
     limit: Number(pageSize),
