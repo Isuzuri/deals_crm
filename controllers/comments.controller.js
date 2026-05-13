@@ -5,7 +5,7 @@ const create = async (req, res, next) => {
   try {
     const { text } = req.body;
     const { id: deal_id } = req.deal;
-    const { userId: author_id } = req.user;
+    const { id: author_id } = req.user;
 
     if (!text) throw createError(400, "Bad request");
 

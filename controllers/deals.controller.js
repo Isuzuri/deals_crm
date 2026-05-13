@@ -16,7 +16,10 @@ const create = async (req, res, next) => {
 const getAll = async (req, res, next) => {
   try {
     const { search, page, pageSize, sortBy, order } = req.query;
-    const result = await dealsService.getAll(search, page, pageSize, sortBy, order);
+    const { id: manager_id, role } = req.user;
+    if (!manager_id || !role) throw createError(401, 'Unauthorized')
+
+    const result = await dealsService.getAll(search, page, pageSize, sortBy, order, manager_id, role);
     res.status(200).json(result);
   } catch (error) {
     next(error);
@@ -40,7 +43,7 @@ const update = async (req, res, next) => {
     const { id: deal_id } = req.deal;
     if (!deal_id) throw createError(404, "Deal not found");
 
-    const result = await dealsService.update(deal_id, title, amount, status, deadline, client_id);
+    const result = await dealsService.update(deal_id, title, amount, status, deadline, client_id, manager_id, role);
     res.status(200).json(result);
   } catch (error) {
     next(error);

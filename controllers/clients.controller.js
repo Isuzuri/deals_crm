@@ -6,7 +6,7 @@ const create = async (req, res, next) => {
     const { name, email, phone, company } = req.body;
     if (!name || !email || !phone || !company) throw createError(400, "Bad request");
 
-    const manager_id = req.user.userId;
+    const manager_id = req.user.id;
     if (!manager_id) throw createError(404, "Manager not found");
 
     const result = await clientsService.create(name, email, phone, company, manager_id);

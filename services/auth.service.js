@@ -13,7 +13,11 @@ const register = async (email, password, username) => {
     role: "manager",
   });
 
-  const accessToken = jwt.sign({ userId: newUser.id, role: newUser.role }, process.env.JWT_SECRET, { expiresIn: "15m" });
+  const accessToken = jwt.sign(
+    { id: newUser.id, email: newUser.email, username: newUser.username, role: newUser.role },
+    process.env.JWT_SECRET,
+    { expiresIn: "15m" },
+  );
 
   return { email: newUser.email, username: newUser.username, role: newUser.role, accessToken };
 };
@@ -25,7 +29,12 @@ const login = async (email, password) => {
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) throw new Error("Invalid credentials");
 
-  const accessToken = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "15m" });
+  const accessToken = jwt.sign(
+    { id: user.id, email: user.email, username: user.username, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: "15m" },
+  );
+  
   return { accessToken };
 };
 
