@@ -1,7 +1,7 @@
-const createError = require("../helpers/createError");
-const usersService = require("../services/users.service");
+import createError from "../helpers/createError.js";
+import * as usersService from "../services/users.service.js";
 
-const create = async (req, res, next) => {
+export const create = async (req, res, next) => {
   try {
     const { email, password, username, role } = req.body;
     if (!email || !password || !username) throw createError(400, "Bad request");
@@ -14,7 +14,7 @@ const create = async (req, res, next) => {
   }
 };
 
-const getAll = async (req, res, next) => {
+export const getAll = async (req, res, next) => {
   try {
     const { search, page, pageSize, sortBy, order } = req.query;
     const result = await usersService.getAll(search, page, pageSize, sortBy, order);
@@ -24,7 +24,7 @@ const getAll = async (req, res, next) => {
   }
 };
 
-const getOne = async (req, res, next) => {
+export const getOne = async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!id) throw createError(404, "User not found");
@@ -38,7 +38,7 @@ const getOne = async (req, res, next) => {
   }
 };
 
-const update = async (req, res, next) => {
+export const update = async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!id) throw createError(404, "User not found");
@@ -57,7 +57,7 @@ const update = async (req, res, next) => {
   }
 };
 
-const deleteOne = async (req, res, next) => {
+export const deleteOne = async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!id) throw createError(404, "User not found");
@@ -72,7 +72,7 @@ const deleteOne = async (req, res, next) => {
   }
 };
 
-const getDealsByUser = async (req, res, next) => {
+export const getDealsByUser = async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!id) throw createError(404, "User not found");
@@ -87,5 +87,3 @@ const getDealsByUser = async (req, res, next) => {
     next(error);
   }
 };
-
-module.exports = { create, getAll, getOne, update, deleteOne, getDealsByUser };

@@ -1,7 +1,7 @@
-const createError = require("../helpers/createError");
-const authService = require("../services/auth.service");
+import createError from "../helpers/createError.js";
+import * as authService from "../services/auth.service.js";
 
-const register = async (req, res, next) => {
+export const register = async (req, res, next) => {
   try {
     const { email, password, username } = req.body;
     if (!email || !password || !username) throw createError(400, "Invalid fields");
@@ -13,7 +13,7 @@ const register = async (req, res, next) => {
   }
 };
 
-const login = async (req, res, next) => {
+export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) throw createError(400, "Invalid fields");
@@ -24,5 +24,3 @@ const login = async (req, res, next) => {
     next(error);
   }
 };
-
-module.exports = { register, login };

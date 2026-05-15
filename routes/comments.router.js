@@ -1,7 +1,8 @@
-const express = require("express");
+import express from "express";
+import getComment from "../middleware/getComment.js";
+import * as commentsController from "../controllers/comments.controller.js";
+
 const comments = express.Router();
-const getComment = require("../middleware/getComment");
-const commentsController = require("../controllers/comments.controller");
 
 comments.param("comment_id", getComment);
 
@@ -11,4 +12,4 @@ comments.get("/:comment_id", commentsController.getOne);
 comments.put("/:comment_id", commentsController.update);
 comments.delete("/:comment_id", commentsController.deleteOne);
 
-module.exports = comments;
+export default comments;

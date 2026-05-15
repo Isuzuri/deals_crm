@@ -1,5 +1,6 @@
-const createError = require("../helpers/createError");
-const db = require("../models");
+import createError from "../helpers/createError.js";
+import db from "../models/index.js";
+
 const { Deal, Client } = db;
 
 const getDeal = async (req, res, next) => {
@@ -16,4 +17,4 @@ const getDeal = async (req, res, next) => {
   next();
 };
 
-module.exports = getDeal;
+export default getDeal;

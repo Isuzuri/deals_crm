@@ -1,6 +1,4 @@
-"use strict";
-
-const { faker } = require("@faker-js/faker");
+import { faker } from "@faker-js/faker";
 
 const STATUSES = ["lead", "active", "inactive"];
 
@@ -13,7 +11,7 @@ function uniqueFromSet(set, generator) {
   return v;
 }
 
-module.exports = {
+export default {
   async up(queryInterface) {
     const now = new Date();
 
@@ -54,4 +52,3 @@ module.exports = {
     await queryInterface.bulkDelete("Clients", null, {});
   },
 };
-

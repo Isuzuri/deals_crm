@@ -1,7 +1,7 @@
-const createError = require("../helpers/createError");
-const commentsService = require("../services/comments.service");
+import createError from "../helpers/createError.js";
+import * as commentsService from "../services/comments.service.js";
 
-const create = async (req, res, next) => {
+export const create = async (req, res, next) => {
   try {
     const { text } = req.body;
     const { id: deal_id } = req.deal;
@@ -16,7 +16,7 @@ const create = async (req, res, next) => {
   }
 };
 
-const getAll = async (req, res, next) => {
+export const getAll = async (req, res, next) => {
   try {
     const { search, page, pageSize, sortBy, order } = req.query;
     const result = await commentsService.getAll(search, page, pageSize, sortBy, order);
@@ -26,7 +26,7 @@ const getAll = async (req, res, next) => {
   }
 };
 
-const getOne = async (req, res, next) => {
+export const getOne = async (req, res, next) => {
   try {
     const result = req.comment;
     res.status(200).json(result);
@@ -35,7 +35,7 @@ const getOne = async (req, res, next) => {
   }
 };
 
-const update = async (req, res, next) => {
+export const update = async (req, res, next) => {
   try {
     const { text } = req.body;
     if (!text) throw createError(400, "Bad request");
@@ -50,7 +50,7 @@ const update = async (req, res, next) => {
   }
 };
 
-const deleteOne = async (req, res, next) => {
+export const deleteOne = async (req, res, next) => {
   try {
     const { id: comment_id } = req.comment;
     if (!comment_id) throw createError(404, "Comment not found");
@@ -61,5 +61,3 @@ const deleteOne = async (req, res, next) => {
     next(error);
   }
 };
-
-module.exports = { create, getAll, getOne, update, deleteOne };

@@ -1,12 +1,13 @@
-const { Op } = require("sequelize");
-const db = require("../models");
+import { Op } from "sequelize";
+import db from "../models/index.js";
+
 const { Comment } = db;
 
-const create = async (text, deal_id, author_id) => {
+export const create = async (text, deal_id, author_id) => {
   return Comment.create({ text, deal_id, author_id });
 };
 
-const getAll = async (search, page, pageSize, sortBy, order) => {
+export const getAll = async (search, page, pageSize, sortBy, order) => {
   const comments = await Comment.findAndCountAll({
     where: search ? { text: { [Op.like]: `%${search}%` } } : {},
     order: [[sortBy, order]],
@@ -16,16 +17,10 @@ const getAll = async (search, page, pageSize, sortBy, order) => {
   return comments;
 };
 
-// const getOne = async (id) => {
-//   return await Deal.findByPk(id);
-// };
-
-const update = async (comment_id, text) => {
+export const update = async (comment_id, text) => {
   return await Comment.update({ text }, { where: { id: comment_id } });
 };
 
-const deleteOne = async (comment_id) => {
+export const deleteOne = async (comment_id) => {
   return await Comment.destroy({ where: { id: comment_id } });
 };
-
-module.exports = { create, getAll, update, deleteOne };

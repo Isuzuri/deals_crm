@@ -1,9 +1,10 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { User } = require("../models");
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { User } from "../models/index.js";
+
 const saltRounds = 10;
 
-const register = async (email, password, username) => {
+export const register = async (email, password, username) => {
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
   const newUser = await User.create({
@@ -22,7 +23,7 @@ const register = async (email, password, username) => {
   return { email: newUser.email, username: newUser.username, role: newUser.role, accessToken };
 };
 
-const login = async (email, password) => {
+export const login = async (email, password) => {
   const user = await User.findOne({ where: { email } });
   if (!user) throw new Error("Invalid credentials");
 
@@ -34,8 +35,6 @@ const login = async (email, password) => {
     process.env.JWT_SECRET,
     { expiresIn: "15m" },
   );
-  
+
   return { accessToken };
 };
-
-module.exports = { register, login };

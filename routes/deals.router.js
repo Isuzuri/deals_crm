@@ -1,10 +1,11 @@
-const express = require("express");
-const deals = express.Router();
-const getDeal = require("../middleware/getDeal");
-const dealsController = require("../controllers/deals.controller");
-const comments = require("./comments.router");
+import express from "express";
+import getDeal from "../middleware/getDeal.js";
+import * as dealsController from "../controllers/deals.controller.js";
+import comments from "./comments.router.js";
 
-deals.use('/:deal_id/comments', comments)
+const deals = express.Router();
+
+deals.use("/:deal_id/comments", comments);
 
 deals.param("deal_id", getDeal);
 
@@ -14,4 +15,4 @@ deals.get("/:deal_id", dealsController.getOne);
 deals.put("/:deal_id", dealsController.update);
 deals.delete("/:deal_id", dealsController.deleteOne);
 
-module.exports = deals;
+export default deals;

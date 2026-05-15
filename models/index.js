@@ -1,11 +1,9 @@
-"use strict";
-
-const User = require("./User");
-const Client = require("./Client");
-const Deal = require("./Deal");
-const Comment = require("./Comment");
-const { sequelize } = require("./db");
-const Sequelize = require("sequelize");
+import User from "./User.js";
+import Client from "./Client.js";
+import Deal from "./Deal.js";
+import Comment from "./Comment.js";
+import { sequelize } from "./db.js";
+import Sequelize from "sequelize";
 
 const db = {};
 db.User = User;
@@ -47,4 +45,6 @@ db.Deal.hasMany(db.Comment, {
 db.Comment.belongsTo(db.Deal, {
   foreignKey: "deal_id",
 });
-module.exports = db;
+
+export default db;
+export { sequelize, Sequelize, User, Client, Deal, Comment };

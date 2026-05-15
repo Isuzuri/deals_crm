@@ -1,21 +1,20 @@
-const express = require("express");
-const { sequelize } = require("./models");
-const router = require("./routes/routes");
-
-const authenticateToken = require('./middleware/authenticateToken');
-const auth = require("./routes/auth.routes");
-const errorHandler = require("./middleware/errorHandler");
+import express from "express";
+import { sequelize } from "./models/index.js";
+import router from "./routes/routes.js";
+import authenticateToken from "./middleware/authenticateToken.js";
+import auth from "./routes/auth.routes.js";
+import errorHandler from "./middleware/errorHandler.js";
 
 const app = express();
-app.use(express.json())
+app.use(express.json());
 
 // Public Routes
-app.use('/auth', auth)
+app.use("/auth", auth);
 // Middleware
-app.use(authenticateToken)
+app.use(authenticateToken);
 // Private Routes
-app.use(router)
-app.use(errorHandler)
+app.use(router);
+app.use(errorHandler);
 
 const start = async () => {
   try {

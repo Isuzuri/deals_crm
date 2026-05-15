@@ -1,11 +1,8 @@
-"use strict";
-
-const { faker } = require("@faker-js/faker");
+import { faker } from "@faker-js/faker";
 
 const STATUSES = ["new", "in_progress", "won", "lost"];
 
 function randomUpperTitle8() {
-  // строго A-Z, длина 8
   return faker.string.alpha({ length: 8 }).toUpperCase();
 }
 
@@ -17,7 +14,7 @@ function randomDeadlineWithin30d() {
   return new Date(now + offsetMs);
 }
 
-module.exports = {
+export default {
   async up(queryInterface) {
     const now = new Date();
 
@@ -47,4 +44,3 @@ module.exports = {
     await queryInterface.bulkDelete("Deals", null, {});
   },
 };
-
