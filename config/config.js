@@ -2,24 +2,29 @@ import "dotenv/config";
 
 export default {
   development: {
-    username: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD,
+    username: process.env.DB_USER || "postgres",
+    password: process.env.DB_PASSWORD || null,
     database: process.env.DB_NAME || "database_development",
     host: process.env.DB_HOST || "127.0.0.1",
     dialect: "postgres",
   },
+
   test: {
-    username: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME || "database_development",
+    username: process.env.DB_USER || "postgres",
+    password: process.env.DB_PASSWORD || null,
+    database: process.env.DB_NAME || "database_test",
     host: process.env.DB_HOST || "127.0.0.1",
     dialect: "postgres",
   },
+
   production: {
-    username: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME || "database_development",
-    host: process.env.DB_HOST || "127.0.0.1",
+    use_env_variable: "DATABASE_URL",
     dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   },
 };
