@@ -1,14 +1,15 @@
-const { Op } = require("sequelize");
-const db = require("../models");
+import { Op } from "sequelize";
+import db from "../models/index.js";
+
 const { User, Deal, Client } = db;
 
 const safeUserAttributes = { exclude: ["password"] };
 
-const create = async (email, password, username, role) => {
+export const create = async (email, password, username, role) => {
   return User.create({ email, password, username, role });
 };
 
-const getAll = async (search, page, pageSize, sortBy, order) => {
+export const getAll = async (search, page, pageSize, sortBy, order) => {
   const userWhere = search
     ? { [Op.or]: [{ email: { [Op.like]: `%${search}%` } }, { username: { [Op.like]: `%${search}%` } }] }
     : {};
@@ -22,21 +23,21 @@ const getAll = async (search, page, pageSize, sortBy, order) => {
   });
 };
 
-const getOne = async (id) => {
+export const getOne = async (id) => {
   return User.findByPk(id, { attributes: safeUserAttributes });
 };
 
-const update = async (id, email, username, role, password) => {
+export const update = async (id, email, username, role, password) => {
   const payload = { email, username, role };
   if (password) payload.password = password;
   return User.update(payload, { where: { id } });
 };
 
-const deleteOne = async (id) => {
+export const deleteOne = async (id) => {
   return User.destroy({ where: { id } });
 };
 
-const getDealsByUser = async (id, page, pageSize, sortBy, order) => {
+export const getDealsByUser = async (id, page, pageSize, sortBy, order) => {
   return Deal.findAndCountAll({
     include: [
       {
@@ -50,5 +51,3 @@ const getDealsByUser = async (id, page, pageSize, sortBy, order) => {
     offset: (Number(page) - 1) * Number(pageSize),
   });
 };
-
-module.exports = { create, getAll, getOne, update, deleteOne, getDealsByUser };

@@ -1,8 +1,6 @@
-"use strict";
+import { faker } from "@faker-js/faker";
 
-const { faker } = require("@faker-js/faker");
-
-module.exports = {
+export default {
   async up(queryInterface) {
     const now = new Date();
 
@@ -36,4 +34,3 @@ module.exports = {
     await queryInterface.bulkDelete("Comments", null, {});
   },
 };
-

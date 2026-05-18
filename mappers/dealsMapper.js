@@ -11,7 +11,7 @@ const toResponse = (deal) => {
   };
 };
 
-const toResponseList = ({deals, page, pageSize}) => {
+const toResponseList = ({ deals, page, pageSize }) => {
   return {
     page,
     pageSize,
@@ -20,4 +20,4 @@ const toResponseList = ({deals, page, pageSize}) => {
   };
 };
 
-module.exports = { toResponse, toResponseList };
+export { toResponse, toResponseList };

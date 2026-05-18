@@ -1,10 +1,10 @@
-const commentsRepository = require("../repositories/comments.repository");
+import * as commentsRepository from "../repositories/comments.repository.js";
 
-const create = async (text, deal_id, author_id) => {
+export const create = async (text, deal_id, author_id) => {
   return await commentsRepository.create(text, deal_id, author_id);
 };
 
-const getAll = async (search, page = 1, pageSize = 10, sortBy = "createdAt", order = "DESC") => {
+export const getAll = async (search, page = 1, pageSize = 10, sortBy = "createdAt", order = "DESC") => {
   const comments = await commentsRepository.getAll(search, page, pageSize, sortBy, order);
   return {
     page,
@@ -14,16 +14,10 @@ const getAll = async (search, page = 1, pageSize = 10, sortBy = "createdAt", ord
   };
 };
 
-// const getOne = async (id) => {
-//   return await commentsRepository.getOne(id);
-// };
-
-const update = async (comment_id, text) => {
+export const update = async (comment_id, text) => {
   return await commentsRepository.update(comment_id, text);
 };
 
-const deleteOne = async (comment_id) => {
+export const deleteOne = async (comment_id) => {
   return await commentsRepository.deleteOne(comment_id);
 };
-
-module.exports = { create, getAll, update, deleteOne };

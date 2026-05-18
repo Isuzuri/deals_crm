@@ -1,5 +1,5 @@
-const createError = require("../helpers/createError");
-const { Comment } = require("../models");
+import createError from "../helpers/createError.js";
+import { Comment } from "../models/index.js";
 
 const getComment = async (req, res, next) => {
   const deal = req.deal;
@@ -18,4 +18,4 @@ const getComment = async (req, res, next) => {
   next();
 };
 
-module.exports = getComment;
+export default getComment;

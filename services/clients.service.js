@@ -1,30 +1,28 @@
-const clientsRepository = require("../repositories/clients.repository");
+import * as clientsRepository from "../repositories/clients.repository.js";
 
-const create = async (name, email, phone, company, manager_id) => {
+export const create = async (name, email, phone, company, manager_id) => {
   const status = "lead";
   return await clientsRepository.create(name, email, phone, company, manager_id, status);
 };
 
-const getAll = async (search, page = 1, pageSize = 10, sortBy = "createdAt", order = "DESC") => {
+export const getAll = async (search, page = 1, pageSize = 10, sortBy = "createdAt", order = "DESC") => {
   const clients = await clientsRepository.getAll(search, page, pageSize, sortBy, order);
   return {
     page,
     pageSize,
     count: clients.count,
-    items: clients.rows
-  }
+    items: clients.rows,
+  };
 };
 
-const getOne = async (id) => {
+export const getOne = async (id) => {
   return await clientsRepository.getOne(id);
 };
 
-const update = async (id, name, email, phone, company, status) => {
+export const update = async (id, name, email, phone, company, status) => {
   return await clientsRepository.update(id, name, email, phone, company, status);
 };
 
-const deleteOne = async (id) => {
-    return await clientsRepository.deleteOne(id)
-}
-
-module.exports = { create, getAll, getOne, update, deleteOne };
+export const deleteOne = async (id) => {
+  return await clientsRepository.deleteOne(id);
+};

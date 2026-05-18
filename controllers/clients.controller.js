@@ -1,7 +1,7 @@
-const createError = require("../helpers/createError");
-const clientsService = require("../services/clients.service");
+import createError from "../helpers/createError.js";
+import * as clientsService from "../services/clients.service.js";
 
-const create = async (req, res, next) => {
+export const create = async (req, res, next) => {
   try {
     const { name, email, phone, company } = req.body;
     if (!name || !email || !phone || !company) throw createError(400, "Bad request");
@@ -16,7 +16,7 @@ const create = async (req, res, next) => {
   }
 };
 
-const getAll = async (req, res, next) => {
+export const getAll = async (req, res, next) => {
   try {
     const { search, page, pageSize, sortBy, order } = req.query;
     const result = await clientsService.getAll(search, page, pageSize, sortBy, order);
@@ -26,7 +26,7 @@ const getAll = async (req, res, next) => {
   }
 };
 
-const getOne = async (req, res, next) => {
+export const getOne = async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!id) throw createError(404, "Client not found");
@@ -38,7 +38,7 @@ const getOne = async (req, res, next) => {
   }
 };
 
-const update = async (req, res, next) => {
+export const update = async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!id) throw createError(404, "Client not found");
@@ -54,7 +54,7 @@ const update = async (req, res, next) => {
   }
 };
 
-const deleteOne = async (req, res, next) => {
+export const deleteOne = async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!id) throw createError(404, "Client not found");
@@ -65,5 +65,3 @@ const deleteOne = async (req, res, next) => {
     next(error);
   }
 };
-
-module.exports = { create, getAll, getOne, update, deleteOne };

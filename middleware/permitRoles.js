@@ -1,11 +1,9 @@
-module.exports =
-  (...allowedRoles) =>
-  (req, res, next) => {
-    const role = req.user?.role;
-    if (!role) return res.status(401).json({ message: "Unauthenticated" });
+export default (...allowedRoles) => (req, res, next) => {
+  const role = req.user?.role;
+  if (!role) return res.status(401).json({ message: "Unauthenticated" });
 
-    if (!allowedRoles.includes(role)) {
-      return res.status(403).json({ message: "Forbidden" });
-    }
-    next();
-  };
+  if (!allowedRoles.includes(role)) {
+    return res.status(403).json({ message: "Forbidden" });
+  }
+  next();
+};

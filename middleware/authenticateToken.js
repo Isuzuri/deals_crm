@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -10,11 +10,11 @@ const authenticateToken = (req, res, next) => {
 
   try {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = verified; // сюда попадает инфа из jwt.sign
+    req.user = verified;
     next();
   } catch (err) {
     res.status(403).json({ message: "Invalid or Expired Token" });
   }
 };
 
-module.exports = authenticateToken;
+export default authenticateToken;
